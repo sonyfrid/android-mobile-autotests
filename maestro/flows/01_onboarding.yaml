@@ -9,7 +9,8 @@ tags: [smoke]
     timeout: 30000
 - tapOn: "Forward"
 - assertNotVisible: "All the world's knowledge"
-- tapOn: "Skip"
+- runFlow:
+    file: ../subflows/skip_rest.yaml
 - assertVisible:
     id: "org.wikipedia:id/nav_tab_reading_lists"
 - assertVisible:

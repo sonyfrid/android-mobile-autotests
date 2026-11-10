@@ -1,0 +1,10 @@
+# Долистать приветствие до «Skip» и нажать его
+appId: org.wikipedia
+---
+- repeat:
+    times: 5
+    while:
+      notVisible: "Skip"
+    commands:
+      - tapOn: "Forward"
+- tapOn: "Skip"

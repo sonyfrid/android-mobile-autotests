@@ -8,8 +8,10 @@ class OnboardingPage {
 
   async waitShown() { await this.firstTitle.waitForDisplayed({ timeout: 30000 }); }
 
+  // «Skip» появляется не на первом экране: листаем «Forward», пока он не станет доступен
   async skipAll() {
     await this.waitShown();
+    for (let i = 0; i < 5 && !(await this.skip.isDisplayed()); i++) await this.forward.click();
     await this.skip.click();
   }
 }

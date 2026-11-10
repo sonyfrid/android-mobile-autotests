@@ -1,9 +1,15 @@
-# Пропустить приветствие при первом запуске
+# Пропустить приветствие при первом запуске: «Skip» появляется не на первом экране
 appId: org.wikipedia
 ---
 - extendedWaitUntil:
     visible: "All the world's knowledge"
     timeout: 30000
+- repeat:
+    times: 5
+    while:
+      notVisible: "Skip"
+    commands:
+      - tapOn: "Forward"
 - tapOn: "Skip"
 - extendedWaitUntil:
     visible:

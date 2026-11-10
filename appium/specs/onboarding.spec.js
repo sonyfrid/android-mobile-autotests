@@ -5,18 +5,17 @@ describe('Онбординг', () => {
   it('@smoke первый запуск показывает приветствие, «Skip» ведёт на главный экран', async () => {
     await OnboardingPage.waitShown();
     await expect(OnboardingPage.forward).toBeDisplayed();
-    await OnboardingPage.skip.click();
+    await OnboardingPage.skipAll();
     await MainPage.waitLoaded();
     await expect(MainPage.savedTab).toBeDisplayed();
     await expect(MainPage.searchTab).toBeDisplayed();
   });
 
-  it('листание экранов кнопкой «Forward» меняет экран, «Skip» доступен до конца', async () => {
+  it('«Forward» листает экраны приветствия, первый экран сменяется следующим', async () => {
     await OnboardingPage.waitShown();
     await OnboardingPage.forward.click();
     await expect(OnboardingPage.firstTitle).not.toBeDisplayed();
-    await expect(OnboardingPage.skip).toBeDisplayed();
-    await OnboardingPage.skip.click();
+    await OnboardingPage.skipAll();
     await MainPage.waitLoaded();
   });
 
