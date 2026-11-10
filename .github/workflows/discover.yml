@@ -1,0 +1,31 @@
+name: Discover screens
+
+on:
+  workflow_dispatch:
+  push:
+    paths: ['tools/discover.py', '.github/workflows/discover.yml']
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download app
+        run: mkdir -p apps && curl -sSL -o apps/app.apk https://f-droid.org/repo/org.wikipedia_50616.apk
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: |
+            adb install -r apps/app.apk
+            python3 tools/discover.py org.wikipedia
