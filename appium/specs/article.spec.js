@@ -1,9 +1,12 @@
+const { resetApp } = require('../support/app');
 const { ArticlePage } = require('../pages/ArticlePage');
 const { skipOnboarding, openArticle } = require('../support/flows');
 const { article } = require('../support/data');
 
 describe('Статья', () => {
+  // каждый тест с чистого листа: данные приложения стёрты, приложение запущено заново
   beforeEach(async () => {
+    await resetApp();
     await skipOnboarding();
     await openArticle();
   });

@@ -1,9 +1,14 @@
 const { ArticlePage } = require('../pages/ArticlePage');
 const { skipOnboarding } = require('../support/flows');
-const { APP_ID } = require('../support/app');
+const { APP_ID, resetApp } = require('../support/app');
 const { article } = require('../support/data');
 
 describe('Ссылки на статьи', () => {
+  // каждый тест с чистого листа: данные приложения стёрты, приложение запущено заново
+  beforeEach(async () => {
+    await resetApp();
+  });
+
   it('@smoke ссылка en.wikipedia.org открывает статью прямо в приложении', async () => {
     await skipOnboarding();
     await driver.execute('mobile: deepLink', { url: article.url, package: APP_ID });

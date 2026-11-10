@@ -1,3 +1,4 @@
+const { resetApp } = require('../support/app');
 const { MainPage } = require('../pages/MainPage');
 const { SearchPage } = require('../pages/SearchPage');
 const { ArticlePage } = require('../pages/ArticlePage');
@@ -5,7 +6,9 @@ const { skipOnboarding } = require('../support/flows');
 const { article, nonsense } = require('../support/data');
 
 describe('Поиск', () => {
+  // каждый тест с чистого листа: данные приложения стёрты, приложение запущено заново
   beforeEach(async () => {
+    await resetApp();
     await skipOnboarding();
     await MainPage.openSearch();
   });

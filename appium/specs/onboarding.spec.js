@@ -1,7 +1,13 @@
+const { resetApp } = require('../support/app');
 const { OnboardingPage } = require('../pages/OnboardingPage');
 const { MainPage } = require('../pages/MainPage');
 
 describe('Онбординг', () => {
+  // каждый тест с чистого листа: данные приложения стёрты, приложение запущено заново
+  beforeEach(async () => {
+    await resetApp();
+  });
+
   it('@smoke первый запуск показывает приветствие, «Skip» ведёт на главный экран', async () => {
     await OnboardingPage.waitShown();
     await expect(OnboardingPage.forward).toBeDisplayed();

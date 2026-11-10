@@ -32,10 +32,8 @@ exports.config = {
     ['allure', { outputDir: 'allure-results', disableWebdriverStepsReporting: true, disableWebdriverScreenshotsReporting: false }],
   ],
 
-  // каждый тест с чистого листа: данные приложения стираются, приложение стартует заново
+  // видео каждого теста; сброс приложения делает beforeEach в спеках (beforeTest идёт уже после beforeEach)
   beforeTest: async function () {
-    const { resetApp } = require('./support/app');
-    await resetApp();
     await driver.startRecordingScreen({ timeLimit: 180 }).catch(() => {});
   },
 

@@ -2,7 +2,7 @@ const { MainPage } = require('../pages/MainPage');
 const { ArticlePage } = require('../pages/ArticlePage');
 const { SavedPage } = require('../pages/SavedPage');
 const { skipOnboarding, openArticle } = require('../support/flows');
-const { setOnline } = require('../support/app');
+const { setOnline, resetApp } = require('../support/app');
 const { article } = require('../support/data');
 
 async function backToMain() {
@@ -11,7 +11,9 @@ async function backToMain() {
 }
 
 describe('Сохранённые статьи и история', () => {
+  // каждый тест с чистого листа: данные приложения стёрты, приложение запущено заново
   beforeEach(async () => {
+    await resetApp();
     await skipOnboarding();
   });
 

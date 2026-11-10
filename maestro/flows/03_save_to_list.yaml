@@ -19,5 +19,10 @@ tags: [smoke]
       - back
 - tapOn:
     id: "org.wikipedia:id/nav_tab_reading_lists"
-- tapOn: "Saved"
-- assertVisible: "Appium"
+# первый «Saved» на экране — список, второй — подпись вкладки внизу
+- tapOn:
+    text: "Saved"
+    index: 0
+- extendedWaitUntil:
+    visible: "Appium"
+    timeout: 15000
