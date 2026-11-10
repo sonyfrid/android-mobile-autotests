@@ -13,7 +13,22 @@ def adb(*args):
     return subprocess.run(["adb", *args], capture_output=True, text=True).stdout
 
 
+def dismiss_system_dialogs():
+    """Закрыть системные «Приложение не отвечает» (на медленном эмуляторе в CI так бывает с лаунчером)."""
+    for _ in range(5):
+        adb("shell", "uiautomator", "dump", "/sdcard/ui.xml")
+        xml = adb("shell", "cat", "/sdcard/ui.xml")
+        m = re.search(r'resource-id="android:id/aerr_wait"[^>]*bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', xml)
+        if not m:
+            return
+        x1, y1, x2, y2 = map(int, m.groups())
+        adb("shell", "input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
+        print("--- dismissed system ANR dialog", flush=True)
+        time.sleep(2)
+
+
 def dump(title):
+    dismiss_system_dialogs()
     adb("shell", "uiautomator", "dump", "/sdcard/ui.xml")
     xml = adb("shell", "cat", "/sdcard/ui.xml")
     print(f"\n===== SCREEN: {title} =====", flush=True)
@@ -24,10 +39,13 @@ def dump(title):
         return None
     for n in root.iter("node"):
         rid, text, desc = n.get("resource-id", ""), n.get("text", ""), n.get("content-desc", "")
+        rid = rid.replace(PKG + ":id/", "")
+        if rid.startswith("android:id/") and not text and not desc:
+            continue
         if rid or text or desc:
             cls = n.get("class", "").split(".")[-1]
             flags = "".join(f for f, k in (("C", "clickable"), ("S", "scrollable")) if n.get(k) == "true")
-            print(f"{cls:<22} {flags:<2} id={rid.replace(PKG + ':id/', '')!s:<40} text={text[:60]!r} desc={desc[:60]!r} {n.get('bounds')}")
+            print(f"{cls}|{flags}|{rid}|{text[:50]}|{desc[:50]}")
     return root
 
 
@@ -43,8 +61,10 @@ def tap(root, **kw):
     return False
 
 
-adb("shell", "am", "start", "-W", "-n", f"{PKG}/.main.MainActivity")
-time.sleep(8)
+time.sleep(20)
+dismiss_system_dialogs()
+adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
+time.sleep(10)
 r = dump("launch")
 for _ in range(4):
     if r is not None and tap(r, **{"resource-id": "fragment_onboarding_forward_button"}):
