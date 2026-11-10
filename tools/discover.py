@@ -103,12 +103,21 @@ r = dump("search field focused")
 adb("shell", "input", "text", "Appium")
 time.sleep(6)
 r = dump("search results")
-tap_any(r, "Appium", exact=True) or tap_any(r, "page_list_item_title")
-time.sleep(10)
+tap_any(r, "Automation for Apps")
+time.sleep(12)
 r = dump("article")
+for word in ("Save", "Theme", "Find in article", "Contents", "Language", "Share", "More options", "Tabs"):
+    if r is not None and tap_any(r, word, exact=True):
+        r = dump(f"article after tap {word}")
+        adb("shell", "input", "keyevent", "4")
+        time.sleep(3)
+        r = dump(f"article back from {word}")
 adb("shell", "input", "keyevent", "4")
 time.sleep(3)
 r = dump("after back")
+adb("shell", "input", "keyevent", "4")
+time.sleep(3)
+r = dump("after back 2")
 for name in ("nav_tab_reading_lists", "nav_tab_edits", "nav_tab_more", "nav_tab_home"):
     if r is not None and tap_any(r, name):
         r = dump(f"tab {name}")
