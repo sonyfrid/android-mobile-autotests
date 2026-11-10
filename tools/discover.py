@@ -66,29 +66,52 @@ dismiss_system_dialogs()
 adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
 time.sleep(10)
 r = dump("launch")
-for _ in range(4):
-    if r is not None and tap(r, **{"resource-id": "fragment_onboarding_forward_button"}):
-        r = dump("onboarding next")
-if r is not None and not tap(r, **{"resource-id": "fragment_onboarding_done_button"}):
-    tap(r, **{"resource-id": "fragment_onboarding_skip_button"})
-time.sleep(4)
+
+
+def tap_any(root, word, exact=False):
+    """Нажать на элемент, у которого текст или content-desc содержит слово (Compose-экраны без id)."""
+    for n in root.iter("node"):
+        for attr in ("text", "content-desc", "resource-id"):
+            v = (n.get(attr) or "")
+            if (v.lower() == word.lower()) if exact else (word.lower() in v.lower()):
+                x1, y1, x2, y2 = map(int, re.findall(r"\d+", n.get("bounds")))
+                adb("shell", "input", "tap", str((x1 + x2) // 2), str((y1 + y2) // 2))
+                print(f"--- tap [{attr}~{word}]", flush=True)
+                time.sleep(3)
+                return True
+    print(f"--- NOT FOUND {word}", flush=True)
+    return False
+
+
+for i in range(4):
+    if r is None or not tap_any(r, "Forward", exact=True):
+        break
+    r = dump(f"onboarding {i + 2}")
+for word in ("Get started", "Continue", "Skip", "Done"):
+    if r is not None and tap_any(r, word):
+        break
+time.sleep(5)
 r = dump("main")
-tap(r, text="Search Wikipedia") or tap(r, **{"content-desc": "Search"})
+for word in ("Search Wikipedia", "Search"):
+    if tap_any(r, word):
+        break
 r = dump("search open")
 adb("shell", "input", "text", "Appium")
-time.sleep(5)
+time.sleep(6)
 r = dump("search results")
-tap(r, **{"resource-id": "page_list_item_title"})
-time.sleep(8)
+tap_any(r, "Appium", exact=True) or tap_any(r, "page_list_item_title")
+time.sleep(10)
 r = dump("article")
-adb("shell", "input", "swipe", "500", "1500", "500", "500")
-time.sleep(2)
-r = dump("article scrolled")
+for word in ("Save", "Theme", "Find in article", "Contents", "Language"):
+    print(f"article action {word}:", any(word.lower() in ((n.get('text') or '') + (n.get('content-desc') or '')).lower() for n in r.iter('node')) if r is not None else None)
+tap_any(r, "Save")
+r = dump("after save")
 adb("shell", "input", "keyevent", "4")
-time.sleep(2)
+time.sleep(3)
+r = dump("after back 1")
 adb("shell", "input", "keyevent", "4")
-time.sleep(2)
-r = dump("back to main")
-for name in ("Saved", "Search", "Edits", "More", "Explore"):
-    if tap(r, **{"content-desc": name}) or tap(r, text=name):
+time.sleep(3)
+r = dump("after back 2")
+for name in ("Saved", "History", "Explore", "More"):
+    if r is not None and tap_any(r, name, exact=True):
         r = dump(f"tab {name}")
