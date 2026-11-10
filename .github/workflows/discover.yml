@@ -2,8 +2,6 @@ name: Discover screens
 
 on:
   workflow_dispatch:
-  push:
-    paths: ['tools/discover.py', '.github/workflows/discover.yml']
 
 jobs:
   discover:
