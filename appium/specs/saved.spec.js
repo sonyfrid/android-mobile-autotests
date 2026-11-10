@@ -5,8 +5,12 @@ const { skipOnboarding, openArticle } = require('../support/flows');
 const { setOnline, resetApp } = require('../support/app');
 const { article } = require('../support/data');
 
+// из статьи назад на главный экран: статья → экран поиска → главный
 async function backToMain() {
-  for (let i = 0; i < 4 && !(await MainPage.homeTab.isDisplayed()); i++) await driver.back();
+  for (let i = 0; i < 6; i++) {
+    if (await MainPage.homeTab.waitForDisplayed({ timeout: 2000 }).catch(() => false)) return;
+    await driver.back();
+  }
   await MainPage.waitLoaded();
 }
 
@@ -22,8 +26,15 @@ describe('Сохранённые статьи и история', () => {
     await ArticlePage.saveToDefaultList();
     await backToMain();
     await MainPage.savedTab.click();
-    await SavedPage.openList('Saved');
+    await SavedPage.open();
     await expect(SavedPage.article(article.title)).toBeDisplayed();
+  });
+
+  it('запрос попадает в «Recent searches» на экране поиска', async () => {
+    await openArticle();
+    await driver.back();
+    await expect($('android=new UiSelector().text("Recent searches:")')).toBeDisplayed();
+    await expect($(`android=new UiSelector().resourceId("org.wikipedia:id/recent_searches_recycler").childSelector(new UiSelector().text("${article.query}"))`)).toBeDisplayed();
   });
 
   it('прочитанная статья попадает в историю на вкладке Search', async () => {
@@ -43,7 +54,7 @@ describe('Сохранённые статьи и история', () => {
     await setOnline(false);
     try {
       await MainPage.savedTab.click();
-      await SavedPage.openList('Saved');
+      await SavedPage.open();
       await SavedPage.article(article.title).click();
       await ArticlePage.waitLoaded(article.description);
     } finally {

@@ -19,10 +19,13 @@ tags: [smoke]
       - back
 - tapOn:
     id: "org.wikipedia:id/nav_tab_reading_lists"
-# первый «Saved» на экране — список, второй — подпись вкладки внизу
-- tapOn:
-    text: "Saved"
-    index: 0
+# карточка «синхронизировать списки» появляется не всегда
+- runFlow:
+    when:
+      visible: "Not now"
+    commands:
+      - tapOn: "Not now"
+- tapOn: "All articles"
 - extendedWaitUntil:
     visible: "Appium"
     timeout: 15000

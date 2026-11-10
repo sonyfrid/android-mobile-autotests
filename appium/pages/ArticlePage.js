@@ -51,7 +51,7 @@ class ArticlePage {
 
   // «1/3» → { current: 1, total: 3 }
   async matchCounter() {
-    const el = await $(textMatches('\\\\d+/\\\\d+'));
+    const el = await $(textMatches('[0-9]+/[0-9]+'));
     await el.waitForDisplayed();
     const [current, total] = (await el.getText()).split('/').map(Number);
     return { current, total };
