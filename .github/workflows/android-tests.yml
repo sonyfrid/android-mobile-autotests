@@ -7,6 +7,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: android-tests-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   APK_URL: https://f-droid.org/repo/org.wikipedia_50616.apk
   APK_ARCHIVE_URL: https://f-droid.org/archive/org.wikipedia_50616.apk

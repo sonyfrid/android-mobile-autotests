@@ -10,7 +10,7 @@ class OnboardingPage {
 
   // «Skip» появляется не на первом экране: листаем «Forward», пока он не станет доступен
   async skipAll() {
-    await this.waitShown();
+    await $(desc('Forward')).waitForDisplayed({ timeout: 30000 });
     for (let i = 0; i < 5 && !(await this.skip.isDisplayed()); i++) await this.forward.click();
     await this.skip.click();
   }
