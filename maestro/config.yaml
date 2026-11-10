@@ -1,4 +1,4 @@
-# Maestro: какие флоу запускать (maestro test maestro/)
+# Maestro: запуск всех флоу (maestro test maestro/)
 flows:
   - "flows/*"
 executionOrder:

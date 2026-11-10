@@ -1,0 +1,21 @@
+# Найти и открыть статью «Appium»
+appId: org.wikipedia
+---
+- tapOn:
+    id: "org.wikipedia:id/nav_tab_search"
+- runFlow:
+    when:
+      visible: "A Faster way to Search"
+    commands:
+      - tapOn: "Close"
+- tapOn:
+    id: "org.wikipedia:id/search_card"
+- inputText: "Appium"
+- extendedWaitUntil:
+    visible: "Automation for Apps"
+    timeout: 20000
+- tapOn: "Automation for Apps"
+- extendedWaitUntil:
+    visible:
+      id: "org.wikipedia:id/page_save"
+    timeout: 30000

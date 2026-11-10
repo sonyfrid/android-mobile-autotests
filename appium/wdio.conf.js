@@ -1,6 +1,6 @@
 const path = require('path');
 
-const APP = process.env.APP_PATH || path.resolve(__dirname, '../apps/mda.apk');
+const APP = process.env.APP_PATH || path.resolve(__dirname, '../apps/wikipedia.apk');
 
 exports.config = {
   runner: 'local',
@@ -13,7 +13,7 @@ exports.config = {
     'appium:automationName': 'UiAutomator2',
     'appium:deviceName': process.env.DEVICE_NAME || 'Android Emulator',
     'appium:app': APP,
-    'appium:appPackage': 'com.saucelabs.mydemoapp.android',
+    'appium:appPackage': 'org.wikipedia',
     'appium:appWaitActivity': '*',
     'appium:autoGrantPermissions': true,
     'appium:newCommandTimeout': 240,
@@ -47,6 +47,14 @@ exports.config = {
     if (shot) allure.addAttachment('screenshot', Buffer.from(shot, 'base64'), 'image/png');
     if (video) allure.addAttachment('video', Buffer.from(video, 'base64'), 'video/mp4');
     const source = await driver.getPageSource().catch(() => null);
-    if (source) allure.addAttachment('page-source', source, 'application/xml');
+    if (source) {
+      allure.addAttachment('page-source', source, 'application/xml');
+      // краткий снимок экрана в лог CI: id, текст и описание элементов
+      const attr = (tag, name) => ((tag.match(new RegExp(` ${name}="([^"]*)"`)) || [])[1] || '');
+      const nodes = (source.match(/<[\w.]+ [^>]*>/g) || [])
+        .map((tag) => [attr(tag, 'resource-id').replace('org.wikipedia:id/', ''), attr(tag, 'text').slice(0, 40), attr(tag, 'content-desc').slice(0, 40)].join('|'))
+        .filter((l) => l.replace(/\|/g, '').trim());
+      console.log(`\n[screen at failure: ${test.title}]\n${nodes.slice(0, 80).join('\n')}`);
+    }
   },
 };

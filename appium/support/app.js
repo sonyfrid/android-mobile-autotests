@@ -1,21 +1,32 @@
-const APP_ID = 'com.saucelabs.mydemoapp.android';
+const APP_ID = 'org.wikipedia';
 
-// Локаторы приложения: id ресурса, accessibility id (content-desc) и UiSelector по тексту
+// Локаторы: resource-id, accessibility id (content-desc), UiSelector по тексту.
+// Часть экранов Wikipedia написана на Jetpack Compose: там нет id, поэтому ищем по тексту и описанию.
 const id = (name) => `id=${APP_ID}:id/${name}`;
 const desc = (text) => `~${text}`;
 const text = (value) => `android=new UiSelector().text("${value}")`;
 const textContains = (value) => `android=new UiSelector().textContains("${value}")`;
+const textMatches = (regex) => `android=new UiSelector().textMatches("${regex}")`;
 
-// прокрутить экран до элемента с текстом (RecyclerView, ScrollView)
-const scrollToText = (value) =>
-  `android=new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text("${value}"))`;
-
-async function resetApp() {
-  await driver.execute('mobile: clearApp', { appId: APP_ID });
-  await driver.activateApp(APP_ID);
+// На медленном эмуляторе в CI иногда всплывает системное «Приложение не отвечает»: жмём «Подождать»
+async function dismissSystemDialogs() {
+  for (let i = 0; i < 3; i++) {
+    const wait = await $('id=android:id/aerr_wait');
+    if (!(await wait.isExisting())) return;
+    await wait.click();
+  }
 }
 
-// «$29.99» → 29.99
-const price = (value) => Number(String(value).replace(/[^0-9.]/g, ''));
+// Чистый старт: стираем данные приложения (онбординг, история, списки, настройки) и запускаем заново
+async function resetApp() {
+  await dismissSystemDialogs();
+  await driver.execute('mobile: clearApp', { appId: APP_ID });
+  await driver.activateApp(APP_ID);
+  await dismissSystemDialogs();
+}
 
-module.exports = { APP_ID, id, desc, text, textContains, scrollToText, resetApp, price };
+async function setOnline(online) {
+  await driver.execute('mobile: setConnectivity', { wifi: online, data: online });
+}
+
+module.exports = { APP_ID, id, desc, text, textContains, textMatches, dismissSystemDialogs, resetApp, setOnline };

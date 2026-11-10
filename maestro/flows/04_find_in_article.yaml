@@ -1,0 +1,14 @@
+appId: org.wikipedia
+name: "04 Article - поиск по тексту статьи"
+---
+- launchApp:
+    clearState: true
+- runFlow: ../subflows/skip_onboarding.yaml
+- runFlow: ../subflows/open_appium_article.yaml
+- tapOn:
+    id: "org.wikipedia:id/page_find_in_article"
+- inputText: "Appium"
+- assertVisible: "1/.*"
+- tapOn:
+    id: "org.wikipedia:id/find_in_page_next"
+- assertVisible: "2/.*"

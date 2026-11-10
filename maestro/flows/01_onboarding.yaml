@@ -1,0 +1,16 @@
+appId: org.wikipedia
+name: "01 Onboarding - приветствие и переход на главный экран"
+tags: [smoke]
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "All the world's knowledge"
+    timeout: 30000
+- tapOn: "Forward"
+- assertNotVisible: "All the world's knowledge"
+- tapOn: "Skip"
+- assertVisible:
+    id: "org.wikipedia:id/nav_tab_reading_lists"
+- assertVisible:
+    id: "org.wikipedia:id/nav_tab_search"

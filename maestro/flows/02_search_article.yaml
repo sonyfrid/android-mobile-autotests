@@ -1,0 +1,10 @@
+appId: org.wikipedia
+name: "02 Search - поиск и открытие статьи"
+tags: [smoke]
+---
+- launchApp:
+    clearState: true
+- runFlow: ../subflows/skip_onboarding.yaml
+- runFlow: ../subflows/open_appium_article.yaml
+- assertVisible: "Automation for Apps"
+- takeScreenshot: article_appium

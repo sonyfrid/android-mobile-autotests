@@ -1,0 +1,16 @@
+appId: org.wikipedia
+name: "05 Article - изменение размера шрифта"
+---
+- launchApp:
+    clearState: true
+- runFlow: ../subflows/skip_onboarding.yaml
+- runFlow: ../subflows/open_appium_article.yaml
+- tapOn:
+    id: "org.wikipedia:id/page_theme"
+- assertVisible: "100%.*"
+- tapOn:
+    id: "org.wikipedia:id/buttonIncreaseTextSize"
+- assertNotVisible: "100%.*"
+- tapOn:
+    id: "org.wikipedia:id/buttonDecreaseTextSize"
+- assertVisible: "100%.*"

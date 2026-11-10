@@ -1,10 +1,13 @@
-// Тестовые данные. Пользователи и пароль приложение само показывает на экране входа.
+// Статьи для тестов: стабильные, с известным описанием и разделами
 module.exports = {
-  users: {
-    standard: { username: 'bod@example.com', password: '10203040' },
-    locked: { username: 'alice@example.com', password: '10203040' },
+  article: {
+    query: 'Appium',
+    title: 'Appium',
+    description: 'Automation for Apps',
+    section: 'History',
+    wordInText: 'Sauce Labs',
+    url: 'https://en.wikipedia.org/wiki/Appium',
   },
-  address: { fullName: 'Rebecca Winter', address1: 'Mandorley 112', city: 'Truro', zip: '89750', country: 'United Kingdom' },
-  // тестовый номер карты, не настоящий
-  payment: { name: 'Rebecca Winter', card: '3258125675687891', expiry: '0325', cvv: '123' },
+  second: { query: 'Selenium (software)', title: 'Selenium (software)' },
+  nonsense: 'qzxwvkjhgfdpl',
 };

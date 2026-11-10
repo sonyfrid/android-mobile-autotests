@@ -1,0 +1,11 @@
+# Пропустить приветствие при первом запуске
+appId: org.wikipedia
+---
+- extendedWaitUntil:
+    visible: "All the world's knowledge"
+    timeout: 30000
+- tapOn: "Skip"
+- extendedWaitUntil:
+    visible:
+      id: "org.wikipedia:id/nav_tab_home"
+    timeout: 20000

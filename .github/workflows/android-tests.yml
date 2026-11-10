@@ -1,10 +1,15 @@
 name: Android tests
 
 on:
+  push:
+    branches: [main]
+    paths-ignore: ['README.md', 'docs/**', 'tools/**', '.github/workflows/discover.yml']
+  pull_request:
   workflow_dispatch:
 
 env:
-  APK_URL: https://github.com/saucelabs/my-demo-app-android/releases/download/2.3.0/mda-2.3.0-27.apk
+  APK_URL: https://f-droid.org/repo/org.wikipedia_50616.apk
+  APK_ARCHIVE_URL: https://f-droid.org/archive/org.wikipedia_50616.apk
 
 jobs:
   appium:
@@ -26,11 +31,11 @@ jobs:
       - name: Install dependencies, Appium and UiAutomator2 driver
         run: |
           npm ci
-          npm install -g appium@2
+          npm install -g appium
           appium driver install uiautomator2
 
       - name: Download app
-        run: mkdir -p apps && curl -sSL -o apps/mda.apk "$APK_URL"
+        run: mkdir -p apps && (curl -fsSL -o apps/wikipedia.apk "$APK_URL" || curl -fsSL -o apps/wikipedia.apk "$APK_ARCHIVE_URL")
 
       - name: Enable KVM
         run: |
@@ -83,7 +88,7 @@ jobs:
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Download app
-        run: mkdir -p apps && curl -sSL -o apps/mda.apk "$APK_URL"
+        run: mkdir -p apps && (curl -fsSL -o apps/wikipedia.apk "$APK_URL" || curl -fsSL -o apps/wikipedia.apk "$APK_ARCHIVE_URL")
 
       - name: Enable KVM
         run: |
@@ -101,7 +106,7 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           script: |
-            adb install -r apps/mda.apk
+            adb install -r apps/wikipedia.apk
             maestro test maestro/ --format junit --output maestro-report.xml --test-output-dir maestro-artifacts
 
       - uses: actions/upload-artifact@v4
