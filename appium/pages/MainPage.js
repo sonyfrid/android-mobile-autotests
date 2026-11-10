@@ -20,8 +20,9 @@ class MainPage {
     if (await close.isExisting()) await close.click();
   }
 
+  // повторное нажатие на уже открытую вкладку Search сразу открывает ввод запроса, поэтому жмём, только если мы не на ней
   async openSearchTab() {
-    await this.searchTab.click();
+    if (!(await this.searchCard.isDisplayed())) await this.searchTab.click();
     await this.closePromo();
     await this.searchCard.waitForDisplayed();
   }
