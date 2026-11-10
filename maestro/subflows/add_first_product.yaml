@@ -1,0 +1,10 @@
+# Открыть первый товар каталога и добавить его в корзину
+appId: com.saucelabs.mydemoapp.android
+---
+- tapOn:
+    id: "com.saucelabs.mydemoapp.android:id/productIV"
+    index: 0
+- extendedWaitUntil:
+    visible: "Tap to add product to cart"
+    timeout: 15000
+- tapOn: "Tap to add product to cart"

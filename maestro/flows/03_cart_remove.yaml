@@ -1,0 +1,15 @@
+appId: com.saucelabs.mydemoapp.android
+name: "Удаление товара из корзины показывает пустую корзину"
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "Products"
+    timeout: 30000
+- runFlow: ../subflows/add_first_product.yaml
+- tapOn: "View cart"
+- tapOn: "Removes product from cart"
+- assertVisible: "No Items"
+- assertNotVisible:
+    id: "com.saucelabs.mydemoapp.android:id/cartTV"
+    text: "1"

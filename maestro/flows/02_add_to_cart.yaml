@@ -1,0 +1,17 @@
+appId: com.saucelabs.mydemoapp.android
+name: "Товар добавляется в корзину, счётчик и корзина обновляются"
+tags: [smoke]
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "Products"
+    timeout: 30000
+- runFlow: ../subflows/add_first_product.yaml
+- assertVisible:
+    id: "com.saucelabs.mydemoapp.android:id/cartTV"
+    text: "1"
+- tapOn: "View cart"
+- assertVisible: "My Cart"
+- assertVisible: "Proceed To Checkout"
+- takeScreenshot: cart_with_product

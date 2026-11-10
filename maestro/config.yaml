@@ -1,0 +1,5 @@
+# Maestro: какие флоу запускать (maestro test maestro/)
+flows:
+  - "flows/*"
+executionOrder:
+  continueOnFailure: true

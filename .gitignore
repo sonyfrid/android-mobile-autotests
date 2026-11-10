@@ -1,0 +1,7 @@
+node_modules/
+apps/
+logs/
+allure-results/
+allure-report/
+maestro-artifacts/
+maestro-report.xml
