@@ -5,11 +5,13 @@ const { skipOnboarding, openArticle } = require('../support/flows');
 const { setOnline, resetApp } = require('../support/app');
 const { article } = require('../support/data');
 
-// из статьи назад на главный экран: статья → экран поиска → главный
+// из статьи назад на главный экран: статья → экран поиска → главный, через «Navigate up»
 async function backToMain() {
   for (let i = 0; i < 6; i++) {
     if (await MainPage.homeTab.waitForDisplayed({ timeout: 2000 }).catch(() => false)) return;
-    await driver.back();
+    const up = await $('~Navigate up');
+    if (await up.isExisting()) await up.click();
+    else await driver.back();
   }
   await MainPage.waitLoaded();
 }
@@ -32,7 +34,9 @@ describe('Сохранённые статьи и история', () => {
 
   it('запрос попадает в «Recent searches» на экране поиска', async () => {
     await openArticle();
-    await driver.back();
+    await $('~Navigate up').click();
+    // вернулись к поиску с тем же запросом; очищаем поле, и появляются недавние запросы
+    await $('~Clear query').click();
     await expect($('android=new UiSelector().text("Recent searches:")')).toBeDisplayed();
     await expect($(`android=new UiSelector().resourceId("org.wikipedia:id/recent_searches_recycler").childSelector(new UiSelector().text("${article.query}"))`)).toBeDisplayed();
   });

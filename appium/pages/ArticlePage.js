@@ -26,7 +26,8 @@ class ArticlePage {
 
   // окно «сохранить в список»
   get saveSheetTitle() { return $(text('Save articles in reading lists.')); }
-  get defaultList() { return $(desc('Saved')); }
+  // строка списка по умолчанию «Saved»: нажимаем на её описание, оно часть кликабельной строки
+  get defaultList() { return $(text('Save articles in reading lists.')); }
 
   heading(title) { return $(text(title)); }
   description(value) { return $(text(value)); }

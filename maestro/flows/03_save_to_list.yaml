@@ -8,11 +8,10 @@ tags: [smoke]
 - runFlow: ../subflows/open_appium_article.yaml
 - tapOn:
     id: "org.wikipedia:id/page_save"
-- tapOn: "Saved"
-- back
-- back
-- runFlow:
-    when:
+- tapOn: "Save articles in reading lists."
+- repeat:
+    times: 4
+    while:
       notVisible:
         id: "org.wikipedia:id/nav_tab_reading_lists"
     commands:
