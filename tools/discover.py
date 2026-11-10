@@ -92,26 +92,25 @@ for word in ("Get started", "Continue", "Skip", "Done"):
         break
 time.sleep(5)
 r = dump("main")
-for word in ("Search Wikipedia", "Search"):
-    if tap_any(r, word):
+tap_any(r, "nav_tab_search")
+r = dump("search tab")
+if r is not None and tap_any(r, "Close", exact=True):
+    r = dump("search tab after promo")
+for word in ("search_src_text", "Search Wikipedia", "search_container", "Search"):
+    if r is not None and tap_any(r, word):
         break
-r = dump("search open")
+r = dump("search field focused")
 adb("shell", "input", "text", "Appium")
 time.sleep(6)
 r = dump("search results")
 tap_any(r, "Appium", exact=True) or tap_any(r, "page_list_item_title")
 time.sleep(10)
 r = dump("article")
-for word in ("Save", "Theme", "Find in article", "Contents", "Language"):
-    print(f"article action {word}:", any(word.lower() in ((n.get('text') or '') + (n.get('content-desc') or '')).lower() for n in r.iter('node')) if r is not None else None)
-tap_any(r, "Save")
-r = dump("after save")
 adb("shell", "input", "keyevent", "4")
 time.sleep(3)
-r = dump("after back 1")
-adb("shell", "input", "keyevent", "4")
-time.sleep(3)
-r = dump("after back 2")
-for name in ("Saved", "History", "Explore", "More"):
-    if r is not None and tap_any(r, name, exact=True):
+r = dump("after back")
+for name in ("nav_tab_reading_lists", "nav_tab_edits", "nav_tab_more", "nav_tab_home"):
+    if r is not None and tap_any(r, name):
         r = dump(f"tab {name}")
+        if r is not None and tap_any(r, "Close", exact=True):
+            r = dump(f"tab {name} after close")
