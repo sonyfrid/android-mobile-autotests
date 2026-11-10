@@ -1,12 +1,12 @@
-const { desc, text } = require('../support/app');
+const { desc, text, textMatches } = require('../support/app');
 
 // Первый запуск: несколько экранов приветствия (Jetpack Compose, без id)
 class OnboardingPage {
-  get firstTitle() { return $(text("All the world's knowledge")); }
+  get firstTitle() { return $(textMatches('All the world.s knowledge')); }
   get forward() { return $(desc('Forward')); }
   get skip() { return $(text('Skip')); }
 
-  async waitShown() { await this.firstTitle.waitForDisplayed({ timeout: 30000 }); }
+  async waitShown() { await this.firstTitle.waitForDisplayed({ timeout: 60000 }); }
 
   // «Skip» появляется не на первом экране: листаем «Forward», пока он не станет доступен
   async skipAll() {

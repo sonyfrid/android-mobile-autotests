@@ -14,6 +14,7 @@ exports.config = {
     'appium:deviceName': process.env.DEVICE_NAME || 'Android Emulator',
     'appium:app': APP,
     'appium:appPackage': 'org.wikipedia',
+    'appium:appActivity': 'org.wikipedia.main.MainActivity',
     'appium:appWaitActivity': '*',
     'appium:autoGrantPermissions': true,
     'appium:newCommandTimeout': 240,

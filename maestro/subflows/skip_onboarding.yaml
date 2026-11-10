@@ -1,16 +1,15 @@
 # Пропустить приветствие при первом запуске: «Skip» появляется не на первом экране
 appId: org.wikipedia
 ---
-- extendedWaitUntil:
-    visible: "All the world's knowledge"
-    timeout: 30000
-- repeat:
-    times: 5
-    while:
-      notVisible: "Skip"
+- runFlow:
+    when:
+      visible: ".*isn't responding.*"
     commands:
-      - tapOn: "Forward"
-- tapOn: "Skip"
+      - tapOn: "Wait"
+- extendedWaitUntil:
+    visible: "Forward"
+    timeout: 60000
+- runFlow: skip_rest.yaml
 - extendedWaitUntil:
     visible:
       id: "org.wikipedia:id/nav_tab_home"

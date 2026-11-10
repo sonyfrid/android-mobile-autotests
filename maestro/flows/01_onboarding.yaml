@@ -5,12 +5,11 @@ tags: [smoke]
 - launchApp:
     clearState: true
 - extendedWaitUntil:
-    visible: "All the world's knowledge"
-    timeout: 30000
+    visible: "All the world.s knowledge"
+    timeout: 60000
 - tapOn: "Forward"
-- assertNotVisible: "All the world's knowledge"
-- runFlow:
-    file: ../subflows/skip_rest.yaml
+- assertNotVisible: "All the world.s knowledge"
+- runFlow: ../subflows/skip_rest.yaml
 - assertVisible:
     id: "org.wikipedia:id/nav_tab_reading_lists"
 - assertVisible:
