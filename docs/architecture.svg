@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" font-family="-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10161f"/>
+      <stop offset="1" stop-color="#1a1f3a"/>
+    </linearGradient>
+    <path id="l1" d="M40 150 H960"/>
+    <path id="l2" d="M40 316 H960"/>
+  </defs>
+  <rect width="1200" height="440" rx="20" fill="url(#bg2)"/>
+  <text x="40" y="52" fill="#fff" font-size="24" font-weight="700">Как команда из теста доходит до телефона</text>
+
+  <g font-size="15" fill="#8fb4ff" font-weight="700">
+    <text x="40" y="96">Appium: сложная логика и мобильная специфика</text>
+  </g>
+  <g font-size="15" fill="#3DDC84" font-weight="700">
+    <text x="40" y="262">Maestro: быстрый smoke перед релизом</text>
+  </g>
+
+  <g stroke="#3b4a5a" stroke-width="2"><use href="#l1"/><use href="#l2"/></g>
+
+  <g text-anchor="middle" font-size="13" fill="#9fb0c0">
+    <g id="row1">
+      <rect x="40" y="112" width="160" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="120" y="145" fill="#fff" font-size="17" font-weight="700">Spec</text><text x="120" y="167">Mocha, проверки</text>
+      <rect x="230" y="112" width="160" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="310" y="145" fill="#fff" font-size="17" font-weight="700">Page Object</text><text x="310" y="167">локаторы, шаги</text>
+      <rect x="420" y="112" width="160" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="500" y="145" fill="#fff" font-size="17" font-weight="700">WebdriverIO</text><text x="500" y="167">клиент на JavaScript</text>
+      <rect x="610" y="112" width="160" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="690" y="145" fill="#fff" font-size="17" font-weight="700">Appium 3</text><text x="690" y="167">сервер, WebDriver</text>
+      <rect x="800" y="112" width="160" height="76" rx="12" fill="#18212c" stroke="#8fb4ff"/>
+      <text x="880" y="145" fill="#8fb4ff" font-size="17" font-weight="700">UiAutomator2</text><text x="880" y="167">драйвер на устройстве</text>
+    </g>
+    <g id="row2">
+      <rect x="40" y="278" width="255" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="167" y="311" fill="#fff" font-size="17" font-weight="700">Flow</text><text x="167" y="333">YAML, читается как сценарий</text>
+      <rect x="372" y="278" width="255" height="76" rx="12" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="499" y="311" fill="#fff" font-size="17" font-weight="700">Subflow</text><text x="499" y="333">общие шаги: онбординг, статья</text>
+      <rect x="705" y="278" width="255" height="76" rx="12" fill="#18212c" stroke="#3DDC84"/>
+      <text x="832" y="311" fill="#3DDC84" font-size="17" font-weight="700">Maestro CLI</text><text x="832" y="333">сам ждёт элементы и экран</text>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#3b4a5a" stroke-width="2">
+    <path d="M960 150 C1000 150 990 233 1030 233"/>
+    <path d="M960 316 C1000 316 990 233 1030 233"/>
+  </g>
+
+  <g>
+    <rect x="1030" y="96" width="132" height="274" rx="22" fill="#05070a" stroke="#55606e" stroke-width="2"/>
+    <rect x="1040" y="110" width="112" height="246" rx="12" fill="#f8f9fa"/>
+    <circle cx="1096" cy="103" r="3" fill="#2a323c"/>
+    <text x="1096" y="214" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="58" fill="#111">W</text>
+    <text x="1096" y="246" text-anchor="middle" font-size="14" fill="#111" font-weight="700">Wikipedia</text>
+    <rect x="1056" y="268" width="80" height="6" rx="3" fill="#c8ccd1"/>
+    <rect x="1056" y="282" width="62" height="6" rx="3" fill="#c8ccd1"/>
+    <rect x="1056" y="296" width="72" height="6" rx="3" fill="#c8ccd1"/>
+  </g>
+
+  <circle r="5" fill="#8fb4ff"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 150 H960 C1000 150 990 233 1030 233"/></circle>
+  <circle r="5" fill="#3DDC84"><animateMotion dur="2.2s" repeatCount="indefinite" path="M40 316 H960 C1000 316 990 233 1030 233"/></circle>
+
+  <text x="40" y="408" fill="#9fb0c0" font-size="15">Один продукт, два инструмента: можно сравнить, что удобнее на конкретном сценарии.</text>
+</svg>

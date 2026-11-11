@@ -1,8 +1,19 @@
+<p align="center"><img src="docs/hero.png" alt="Wikipedia Android: мобильные автотесты" width="100%"></p>
+
 # Wikipedia Android: мобильные автотесты на Appium и Maestro
 
 **QA Engineer: Sony Fridmo**
 
 [![Android tests](https://github.com/sonyfrid/android-mobile-autotests/actions/workflows/android-tests.yml/badge.svg)](https://github.com/sonyfrid/android-mobile-autotests/actions/workflows/android-tests.yml)
+![Appium 3](https://img.shields.io/badge/Appium-3-662d91)
+![WebdriverIO](https://img.shields.io/badge/WebdriverIO-9-ea5906)
+![Maestro](https://img.shields.io/badge/Maestro-YAML-3DDC84)
+![Allure](https://img.shields.io/badge/report-Allure-97cc64)
+
+<table>
+<tr>
+<td width="300" align="center"><img src="docs/demo.gif" alt="Прогон сценария на эмуляторе" width="260"><br><sub>Настоящий прогон на эмуляторе, ускорено</sub></td>
+<td>
 
 Автотесты для официального Android-приложения **Wikipedia** (Wikimedia Foundation, 50+ млн установок,
 [открытый код](https://github.com/wikimedia/apps-android-wikipedia)). Тестируется реальный релиз из F-Droid
@@ -13,6 +24,28 @@
 - **Maestro**: короткие YAML-флоу и переиспользуемые подфлоу для smoke-проверок перед релизом.
 
 Всё запускается в **GitHub Actions на Android-эмуляторе** (API 30, Pixel 6) на каждый push и pull request.
+
+</td>
+</tr>
+</table>
+
+## Что видит тест
+
+<table>
+<tr>
+<td align="center"><img src="docs/screens/01_welcome.png" width="150" alt="Онбординг"><br><sub><b>Онбординг</b><br>листание и пропуск</sub></td>
+<td align="center"><img src="docs/screens/03_search.png" width="150" alt="Поиск"><br><sub><b>Поиск</b><br>заголовок и описание</sub></td>
+<td align="center"><img src="docs/screens/05_find.png" width="150" alt="Поиск по статье"><br><sub><b>Поиск по статье</b><br>счётчик совпадений</sub></td>
+<td align="center"><img src="docs/screens/06_text_size.png" width="150" alt="Размер шрифта"><br><sub><b>Шрифт</b><br>кнопки «+» и «−»</sub></td>
+<td align="center"><img src="docs/screens/07_saved.png" width="150" alt="Сохранённые"><br><sub><b>Сохранённые</b><br>статья в списке</sub></td>
+</tr>
+</table>
+
+## Как это устроено
+
+<img src="docs/architecture.svg" alt="Путь команды от теста до телефона: Appium и Maestro" width="100%">
+
+<img src="docs/pipeline.svg" alt="CI: push, GitHub Actions, эмулятор, Appium и Maestro, отчёт" width="100%">
 
 ## Что проверяется
 

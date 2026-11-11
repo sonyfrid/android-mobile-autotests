@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" font-family="-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10161f"/>
+      <stop offset="1" stop-color="#0b2a22"/>
+    </linearGradient>
+    <path id="p1" d="M212 200 H262"/>
+    <path id="p2" d="M462 200 H512"/>
+    <path id="p3" d="M712 200 C745 200 735 112 772 112"/>
+    <path id="p4" d="M712 200 C745 200 735 288 772 288"/>
+    <path id="p5" d="M972 112 C1005 112 995 200 1028 200"/>
+    <path id="p6" d="M972 288 C1005 288 995 200 1028 200"/>
+  </defs>
+  <rect width="1200" height="400" rx="20" fill="url(#bg)"/>
+  <text x="40" y="52" fill="#fff" font-size="24" font-weight="700">Что происходит на каждый push</text>
+
+  <g fill="none" stroke="#3b4a5a" stroke-width="2">
+    <use href="#p1"/><use href="#p2"/><use href="#p3"/><use href="#p4"/><use href="#p5"/><use href="#p6"/>
+  </g>
+
+  <g font-size="14" fill="#9fb0c0" text-anchor="middle">
+    <g>
+      <rect x="40" y="150" width="172" height="100" rx="14" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="126" y="193" fill="#fff" font-size="20" font-weight="700">git push</text>
+      <text x="126" y="219">или pull request</text>
+    </g>
+    <g>
+      <rect x="262" y="150" width="200" height="100" rx="14" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="362" y="193" fill="#fff" font-size="20" font-weight="700">GitHub Actions</text>
+      <text x="362" y="219">скачивает релиз APK</text>
+    </g>
+    <g>
+      <rect x="512" y="150" width="200" height="100" rx="14" fill="#18212c" stroke="#3DDC84"/>
+      <text x="612" y="193" fill="#3DDC84" font-size="20" font-weight="700">Android-эмулятор</text>
+      <text x="612" y="219">API 30, Pixel 6</text>
+    </g>
+    <g>
+      <rect x="772" y="62" width="200" height="100" rx="14" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="872" y="105" fill="#fff" font-size="20" font-weight="700">Appium 3</text>
+      <text x="872" y="131">19 тестов на WebdriverIO</text>
+    </g>
+    <g>
+      <rect x="772" y="238" width="200" height="100" rx="14" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="872" y="281" fill="#fff" font-size="20" font-weight="700">Maestro</text>
+      <text x="872" y="307">5 флоу на YAML</text>
+    </g>
+    <g>
+      <rect x="1028" y="134" width="136" height="132" rx="14" fill="#18212c" stroke="#3b4a5a"/>
+      <text x="1096" y="174" fill="#fff" font-size="20" font-weight="700">Отчёт</text>
+      <text x="1096" y="200">Allure, JUnit</text>
+      <text x="1096" y="222">скриншот</text>
+      <text x="1096" y="244">видео, XML</text>
+    </g>
+  </g>
+
+  <g fill="#3DDC84">
+    <circle r="5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M212 200 H512 M512 200 H712 C745 200 735 112 772 112 H972 C1005 112 995 200 1028 200"/></circle>
+    <circle r="5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M212 200 H512 M512 200 H712 C745 200 735 288 772 288 H972 C1005 288 995 200 1028 200"/></circle>
+  </g>
+
+  <text x="40" y="372" fill="#9fb0c0" font-size="15">Один ретрай только в CI. Если тест падает, причина видна без локального запуска.</text>
+</svg>
