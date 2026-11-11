@@ -3,7 +3,7 @@ name: Android tests
 on:
   push:
     branches: [main]
-    paths-ignore: ['README.md', 'docs/**', 'tools/discover.py', '.github/workflows/discover.yml']
+    paths-ignore: ['README.md', 'docs/**', 'tools/discover.py', 'tools/media/**', '.github/workflows/discover.yml', '.github/workflows/media.yml']
   pull_request:
   workflow_dispatch:
 

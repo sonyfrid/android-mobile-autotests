@@ -1,0 +1,97 @@
+# Проход по приложению для иллюстраций в README: те же шаги, что в тестах, плюс снимки экрана
+appId: org.wikipedia
+---
+- launchApp:
+    clearState: true
+- runFlow:
+    when:
+      visible: ".*isn't responding.*"
+    commands:
+      - tapOn: "Wait"
+- extendedWaitUntil:
+    visible: "Forward"
+    timeout: 60000
+- takeScreenshot: 01_welcome
+- runFlow: ../../maestro/subflows/skip_rest.yaml
+- extendedWaitUntil:
+    visible:
+      id: "org.wikipedia:id/nav_tab_home"
+    timeout: 20000
+- waitForAnimationToEnd:
+    timeout: 8000
+- takeScreenshot: 02_home
+- tapOn:
+    id: "org.wikipedia:id/nav_tab_search"
+- runFlow:
+    when:
+      visible: "A Faster way to Search"
+    commands:
+      - tapOn: "Close"
+- tapOn:
+    id: "org.wikipedia:id/search_card"
+- inputText: "Appium"
+- extendedWaitUntil:
+    visible: "Automation for Apps"
+    timeout: 20000
+- takeScreenshot: 03_search
+- tapOn: "Automation for Apps"
+- extendedWaitUntil:
+    visible:
+      id: "org.wikipedia:id/page_save"
+    timeout: 30000
+- waitForAnimationToEnd:
+    timeout: 8000
+- takeScreenshot: 04_article
+- tapOn:
+    id: "org.wikipedia:id/page_find_in_article"
+- inputText: "Appium"
+- assertVisible: "1/.*"
+- tapOn:
+    id: "org.wikipedia:id/find_in_page_next"
+- assertVisible: "2/.*"
+- takeScreenshot: 05_find
+- tapOn: "Done"
+- tapOn:
+    id: "org.wikipedia:id/page_theme"
+- assertVisible: "100%.*"
+- tapOn:
+    id: "org.wikipedia:id/buttonIncreaseTextSize"
+- takeScreenshot: 06_text_size
+- tapOn:
+    id: "org.wikipedia:id/buttonDecreaseTextSize"
+- back
+- tapOn:
+    id: "org.wikipedia:id/page_save"
+- tapOn: "Save articles in reading lists."
+- repeat:
+    times: 4
+    while:
+      notVisible:
+        id: "org.wikipedia:id/nav_tab_reading_lists"
+    commands:
+      - back
+- tapOn:
+    id: "org.wikipedia:id/nav_tab_reading_lists"
+- runFlow:
+    when:
+      visible: "Not now"
+    commands:
+      - tapOn: "Not now"
+- tapOn: "All articles"
+- extendedWaitUntil:
+    visible: "Appium"
+    timeout: 15000
+- takeScreenshot: 07_saved
+- tapOn: "Appium"
+- extendedWaitUntil:
+    visible:
+      id: "org.wikipedia:id/page_theme"
+    timeout: 30000
+- tapOn:
+    id: "org.wikipedia:id/page_theme"
+- tapOn:
+    id: "org.wikipedia:id/button_theme_dark"
+- back
+- waitForAnimationToEnd:
+    timeout: 8000
+- takeScreenshot: 08_dark
